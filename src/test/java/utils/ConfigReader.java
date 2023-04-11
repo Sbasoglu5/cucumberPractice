@@ -8,12 +8,14 @@ import java.util.Properties;
 public class ConfigReader {
     public static Properties prop;
     public static Properties readProperties(){
-        FileInputStream file= null;
+
         try {
-            file = new FileInputStream(Constants.PROPERTY_FILE_PATH);
+            FileInputStream file=new FileInputStream(Constants.PROPERTY_FILE_PATH);
             prop=new Properties();
             prop.load(file);
-        } catch (IOException e) {
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }catch (IOException e){
             throw new RuntimeException(e);
         }
         return prop;
