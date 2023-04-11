@@ -43,6 +43,12 @@ public class Login extends CommonMethods {
     public void close_the_browser() {
         closeBrowser();
     }
-
+    @When("user enters valid {string} and valid {string}")
+    public void user_enters_valid_and_valid(String username, String password) {
+        WebElement usernameBox=driver.findElement(By.id("txtUsername"));
+        sendText(usernameBox,username);
+        WebElement passBox=driver.findElement(By.id("txtPassword"));
+        sendText(passBox,password);
+    }
 
 }
