@@ -61,9 +61,9 @@ public class CommonMethods {
     public static void selectByOptions(WebElement element, String text){
         List<WebElement> options=clickOnDropdown(element).getOptions();
         for (WebElement option : options) {
-            String ddlText=option.getText();
-            if (ddlText.equalsIgnoreCase(text)){
-                option.clear();
+            String getText=option.getText();
+            if (getText.equalsIgnoreCase(text)){
+                option.click();
                 break;
             }
         }
