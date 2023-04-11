@@ -8,36 +8,29 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import utils.CommonMethods;
+import utils.ConfigReader;
+import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
 
-public class Login {
-    public static WebDriver driver;
+public class Login extends CommonMethods {
+
     @Given("open the browser and launch HRMS application")
     public void open_the_browser_and_launch_hrms_application() {
-        String browserType="Chrome";
-        switch (browserType){
-            case "Chrome":
-                driver=new ChromeDriver();
-                break;
-            case "Firefox":
-                driver=new FirefoxDriver();
-            default:
-                driver=new EdgeDriver();
-                break;
-        }
-        driver.manage().window().maximize();
-        driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(1000));
+       openBrowserAndLaunchApplication();
     }
     @When("user enters valid email and valid password")
     public void user_enters_valid_email_and_valid_password() {
-        driver.findElement(By.id("txtUsername")).sendKeys("admin");
-        driver.findElement(By.id("txtPassword")).sendKeys("Hum@nhrm123");
+        WebElement usernameBox=driver.findElement(By.id("txtUsername"));
+        sendText(usernameBox,ConfigReader.getPropertyValue("username"));
+        WebElement passBox=driver.findElement(By.id("txtPassword"));
+        sendText(passBox,ConfigReader.getPropertyValue("password"));
     }
     @When("click on login button")
     public void click_on_login_button() {
-        driver.findElement(By.id("btnLogin")).click();
+        WebElement loginBtn=driver.findElement(By.id("btnLogin"));
+        doClick(loginBtn);
     }
     @Then("user is logged in successfully")
     public void user_is_logged_in_successfully() {
@@ -48,7 +41,8 @@ public class Login {
     }
     @Then("close the browser")
     public void close_the_browser() {
-        driver.close();
+        closeBrowser();
     }
+
 
 }

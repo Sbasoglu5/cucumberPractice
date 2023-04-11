@@ -1,5 +1,6 @@
 Feature: Login functionality
 
+  @login
   Scenario: Valid Admin Login
     Given open the browser and launch HRMS application
     When user enters valid email and valid password
